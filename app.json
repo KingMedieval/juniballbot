@@ -1,0 +1,7 @@
+{
+  "name": "bot",
+  "description": "Discord Music Bot built with discord.js",
+  "repository": "https://github.com/KingMedieval/bot",
+  "logo": "https://steamuserimages-a.akamaihd.net/ugc/1010437294243106815/1FC3AA37C8A351F2E45373BA9EE4EF91B79F87E4/?imw=268&imh=268&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true",
+  "keywords": ["discord", "discordjs", "music", "bot"]
+}

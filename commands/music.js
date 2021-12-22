@@ -3,22 +3,25 @@ const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
 i18n.setLocale(LOCALE);
-const trackID = 593688912
+//const trackID = 593688912
 
 module.exports = {
   name: "music",
   description: "beta. deemix",
   async execute(message, args) {
 
-    response = await fetch(`https://api.deezer.com/track/${trackID}`).then((res) => {
+    searchID = args.join(" ");
+
+    response = await fetch(`https://api.deezer.com/search?q="${searchID}"`).then((res) => {
       status = res.status;
       return res.json()
     });
 
     console.log("1");
 
-    let file_name = `${response.artist.name} - ${response.title}`;
+    let file_name = `${response[0].artist.name} - ${response[0].title}`;
     console.log(file_name);
+    trackID = response[0].id;
 
     /*var fs = require('fs');
     await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {

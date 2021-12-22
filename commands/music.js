@@ -19,9 +19,9 @@ module.exports = {
 
     console.log("1");
 
-    let file_name = `${response[0].artist.name} - ${response[0].title}`;
+    let file_name = `${response.[0].artist.name} - ${response.[0].title}`;
     console.log(file_name);
-    trackID = response[0].id;
+    trackID = response.[0].id;
 
     /*var fs = require('fs');
     await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {

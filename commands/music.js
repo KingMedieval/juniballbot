@@ -21,7 +21,13 @@ module.exports = {
 
     let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
     console.log(file_name);
-    trackID = response.data[0].id;
+    trackID = response.data.[0].id;
+
+    song = {
+      title: `${response.data[0].title} - ${response.data[0].artist.name}`,
+      url: response.data[0].link,
+      duration: response.data[0].duration
+    };
 
     /*var fs = require('fs');
     await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {
@@ -43,6 +49,15 @@ module.exports = {
       volume: 100,
       playing: true
     };
+
+    if (serverQueue) {
+      serverQueue.songs.push(song);
+      return serverQueue.textChannel
+        .send(i18n.__mf("play.queueAdded", { title: song.title, author: message.author }))
+        .catch(console.error);
+    }
+
+    queueConstruct.songs.push(song);
 
     message.client.queue.set(message.guild.id, queueConstruct);
     console.log("4");

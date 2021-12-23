@@ -21,7 +21,7 @@ module.exports = {
 
     let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
     console.log(file_name);
-    trackID = response.data.[0].id;
+    trackID = response.data[0].id;
 
     song = {
       title: `${response.data[0].title} - ${response.data[0].artist.name}`,

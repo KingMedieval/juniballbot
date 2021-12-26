@@ -15,6 +15,11 @@ from deemix.downloader import Downloader
 from deemix.itemgen import GenerationError
 from deemix.plugins.spotify import Spotify
 
+import json
+
+with open("config.json") as json_data_file:
+    data = json.load(json_data_file)
+print(data.DEEZERARL)
 
 class LogListener:
     @classmethod
@@ -39,7 +44,7 @@ def download(url, bitrate, portable, path):
 
     def requestValidArl():
         while True:
-            arl = "1565afb649c55f87f26d28a57f0b1bba546cc9b992c554ceb93635b095527b4808d14eaadd4a637c130b8a1227db1e94a7f8084a78625889c1299681f42beec05ca1b2f7d889f11663b3f75a4fb3fdb5318a4413afdfcff67c3e5f53f3d74ecd"
+            arl = " "
             if dz.login_via_arl(arl.strip()): break
         return arl
 

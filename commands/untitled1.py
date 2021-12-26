@@ -15,12 +15,6 @@ from deemix.downloader import Downloader
 from deemix.itemgen import GenerationError
 from deemix.plugins.spotify import Spotify
 
-import json
-
-with open(os.path.join( os.getcwd(), '..', 'config.json' )) as json_data_file:
-    data = json.load(json_data_file)
-print(data["DEEZERARL"])
-
 class LogListener:
     @classmethod
     def send(cls, key, value=None):

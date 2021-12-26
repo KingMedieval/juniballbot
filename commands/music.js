@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const i18n = require("i18n");
 i18n.setLocale(LOCALE);
 //const trackID = 593688912
+//link = https://www.deezer.com/en/track/593688912
 
 module.exports = {
   name: "music",
@@ -21,7 +22,7 @@ module.exports = {
 
     let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
     console.log(file_name);
-    trackID = response.data[0].id;
+    trackID = response.data.[0].id;
 
     song = {
       title: `${response.data[0].title} - ${response.data[0].artist.name}`,
@@ -39,6 +40,7 @@ module.exports = {
 
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
+    const serverQueue = message.client.queue.get(message.guild.id);
 
     const queueConstruct = {
       textChannel: message.channel,

@@ -97,7 +97,7 @@ function pythonDL(trackID, song) {
         .audioQuality(0)
         .audioBitrate(96)
         .on('error', (err) => console.error(err))
-        .on('end', () => console.log('Finished!'))
+        .on('end', () => resolve())
         .save(`./sounds/${song.title}.ogg`);
 
         /*ffmpeg(`./sounds/${song.title}.mp3`)
@@ -105,7 +105,7 @@ function pythonDL(trackID, song) {
         .on('error', (err) => console.error(err))
         .on('end', () => console.log('Finished!'))
         .save(`./sounds/${song.title} - 96ver.mp3`)*/
-      resolve();
+
     });
   });
 };

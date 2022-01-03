@@ -68,6 +68,9 @@ module.exports = {
       queueConstruct.connection = await channel.join();
       const dispatcher = queueConstruct.connection
         .play(`./sounds/${file_name}.mp3`)
+        .on("finish", () => {
+          message.client.queue.delete(message.guild.id);
+        })
         .on("error", err => {
           message.client.queue.delete(message.guild.id);
           channel.leave();

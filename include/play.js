@@ -46,7 +46,7 @@ module.exports = {
 
       }
       else if (song.url.includes("deezer.com")) {
-        stream = `./sounds/${song.title}.ogg`;
+        stream = `./sounds/${song.title}.mp3`;
       }
     } catch (error) {
       if (queue) {
@@ -65,7 +65,7 @@ module.exports = {
     queue.connection.on("disconnect", () => message.client.queue.delete(message.guild.id));
 
     const dispatcher = queue.connection
-      .play(stream, { highWaterMark: 1, type: streamType })
+      .play(stream, { type: streamType })
       .on("finish", () => {
         if (collector && !collector.ended) collector.stop();
 

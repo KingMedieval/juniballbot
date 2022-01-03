@@ -46,7 +46,7 @@ module.exports = {
 
       }
       else if (song.url.includes("deezer.com")) {
-        stream = `./sounds/${song.title}.mp3`;
+        stream = `./sounds/${song.title}.ogg`;
         streamType = "unknown";
       }
     } catch (error) {

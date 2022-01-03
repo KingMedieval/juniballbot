@@ -6,9 +6,6 @@ const { readdirSync } = require("fs");
 const { join } = require("path");
 const { TOKEN, PREFIX } = require("./util/botUtil");
 const i18n = require("i18n");
-var util = require('util');
-var deemix = require('deemix');
-var fs = require("fs");
 
 
 const client = new Client({
@@ -54,7 +51,6 @@ i18n.configure({
  */
 client.on("ready", () => {
   console.log(`${client.user.username} ready!`);
-  fs.writeFileSync('test.txt', util.inspect(deemix));
   client.user.setActivity(`${PREFIX}help and ${PREFIX}play`, { type: "LISTENING" });
 });
 client.on("warn", (info) => console.log(info));

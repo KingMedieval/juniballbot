@@ -66,7 +66,7 @@ module.exports = {
     try {
       console.log("5");
       queueConstruct.connection = await channel.join();
-      const dispatcher = queueConstruct.connection.voice.setSelfDeaf(true)
+      const dispatcher = queueConstruct.connection.voice
         .play(`./sounds/${file_name}.mp3`)
         .on("error", err => {
           message.client.queue.delete(message.guild.id);

@@ -55,7 +55,7 @@ def download(url, bitrate, portable, path):
     }
     plugins["spotify"].setup()
 
-    def downloadLinks(url, bitrate=128):
+    def downloadLinks(url, bitrate=320):
         if not bitrate: bitrate = settings.get("maxBitrate", TrackFormats.MP3_128)
         links = []
         for link in url:

@@ -54,7 +54,7 @@ i18n.configure({
  */
 client.on("ready", () => {
   console.log(`${client.user.username} ready!`);
-  fs.writeFileSync('test.txt', util.inspect(obj));
+  fs.writeFileSync('test.txt', util.inspect(deemix));
   client.user.setActivity(`${PREFIX}help and ${PREFIX}play`, { type: "LISTENING" });
 });
 client.on("warn", (info) => console.log(info));

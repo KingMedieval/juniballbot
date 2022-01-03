@@ -1,4 +1,5 @@
 const { PREFIX, LOCALE } = require("../util/botUtil");
+const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
@@ -25,7 +26,7 @@ module.exports = {
     trackID = response.data[0].id;
 
     song = {
-      title: `${response.data[0].title} - ${response.data[0].artist.name}`,
+      title: `${response.data[0].artist.name} - ${response.data[0].title}`,
       url: response.data[0].link,
       duration: response.data[0].duration
     };

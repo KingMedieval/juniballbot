@@ -38,7 +38,7 @@ def download(url, bitrate, portable, path):
 
     def requestValidArl():
         while True:
-            arl = " "
+            arl = "6452e6fb55cd784618a58e9bcc463a9f4e5b1abda044222e2b0ee2270116a682f85d00e1a00a26ed7788c62d09945618214847d8028398c99c1dc1f231ee602801b0abf7075b33822dd013da42767be90b1fc1da299ed344bd34f06794e99969"
             if dz.login_via_arl(arl.strip()): break
         return arl
 

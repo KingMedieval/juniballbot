@@ -1,4 +1,5 @@
 const { PREFIX, LOCALE } = require("../util/botUtil");
+const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
@@ -25,7 +26,7 @@ module.exports = {
     trackID = response.data[0].id;
 
     song = {
-      title: `${response.data[0].title} - ${response.data[0].artist.name}`,
+      title: `${response.data[0].artist.name} - ${response.data[0].title}`,
       url: response.data[0].link,
       duration: response.data[0].duration
     };
@@ -64,20 +65,14 @@ module.exports = {
     message.client.queue.set(message.guild.id, queueConstruct);
     console.log("4");
     try {
-      console.log("5");
       queueConstruct.connection = await channel.join();
-      const dispatcher = queueConstruct.connection
-        .play(`./sounds/${file_name}.mp3`)
-        .on("finish", () => {
-          message.client.queue.delete(message.guild.id);
-        })
-        .on("error", err => {
-          message.client.queue.delete(message.guild.id);
-          channel.leave();
-          console.error(err);
-        });
+      await queueConstruct.connection.voice.setSelfDeaf(true);
+      play(queueConstruct.songs[0], message);
     } catch (error) {
       console.error(error);
+      message.client.queue.delete(message.guild.id);
+      await channel.leave();
+      return message.channel.send(i18n.__('play.cantJoinChannel', {error: error})).catch(console.error);
     }
 
   }

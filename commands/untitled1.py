@@ -24,7 +24,7 @@ class LogListener:
 
 @click.command()
 @click.option('--portable', is_flag=True, help='Creates the config folder in the same directory where the script is launched')
-@click.option('-b', '--bitrate', default=128, help='Overwrites the default bitrate selected')
+@click.option('-b', '--bitrate', default=320, help='Overwrites the default bitrate selected')
 @click.option('-p', '--path', type=str, default='./sounds', help='Downloads in the given folder')
 @click.argument('url', nargs=-1, required=True)
 def download(url, bitrate, portable, path):

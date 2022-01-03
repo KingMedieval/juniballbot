@@ -3,6 +3,7 @@ const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
+const ffmpeg = require("fluent-ffmpeg");
 i18n.setLocale(LOCALE);
 //const trackID = 593688912
 //link = https://www.deezer.com/en/track/593688912
@@ -78,7 +79,7 @@ module.exports = {
   }
 };
 
-function pythonDL(trackID) {
+function pythonDL(trackID, song) {
   return new Promise((resolve, reject) => {
     let options = {
       scriptPath: './commands',
@@ -86,12 +87,17 @@ function pythonDL(trackID) {
     };
 
     PythonShell.run('untitled1.py', options, function (err, results) {
-      //PythonShell.on('Paste here your arl:', function (message) {
-      //  PythonShell.send('1565afb649c55f87f26d28a57f0b1bba546cc9b992c554ceb93635b095527b4808d14eaadd4a637c130b8a1227db1e94a7f8084a78625889c1299681f42beec05ca1b2f7d889f11663b3f75a4fb3fdb5318a4413afdfcff67c3e5f53f3d74ecd');
-      //});
       if (err) throw err;
       // results is an array consisting of messages collected during execution
       console.log('results: %j', results);
+
+      ffmpeg(`./sounds/${song.title}.mp3`)
+        .format('ogg')
+        .audioCodec('libopus')
+        .audioQuality(0)
+        .on('error', (err) => console.error(err))
+        .on('end', () => console.log('Finished!'))
+        .save(`./sounds/${song.title}.ogg`);
       resolve();
     });
   });

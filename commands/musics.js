@@ -37,7 +37,7 @@ module.exports = {
         if ( err ) console.log('ERROR: ' + err);
     });*/
     console.log("2");
-    await pythonDL(trackID);
+    await pythonDL(trackID, song);
     console.log("3");
 
     const { channel } = message.member.voice;

@@ -8,7 +8,6 @@ const { TOKEN, PREFIX } = require("./util/botUtil");
 const i18n = require("i18n");
 var util = require('util');
 var deemix = require('deemix');
-var fs = require('fs');
 
 
 const client = new Client({
@@ -54,10 +53,7 @@ i18n.configure({
  */
 client.on("ready", () => {
   console.log(`${client.user.username} ready!`);
-  fs.writeFile('deemix1.txt', deemix, function (err) {
-  if (err) return console.log(err);});
-  fs.writeFile('deemix2.txt', util.inspect(deemix), function (err) {
-  if (err) return console.log(err);});
+  console.log(deemix);
   client.user.setActivity(`${PREFIX}help and ${PREFIX}play`, { type: "LISTENING" });
 });
 client.on("warn", (info) => console.log(info));

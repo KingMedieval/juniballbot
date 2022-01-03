@@ -43,10 +43,11 @@ module.exports = {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, SOUNDCLOUD_CLIENT_ID);
           streamType = "unknown";
         }
-        else if (song.url.includes("deezer.com")) {
-          stream = `./sounds/${song.title}.mp3`;
-          streamType = "unknown";
-        }
+
+      }
+      else if (song.url.includes("deezer.com")) {
+        stream = `./sounds/${song.title}.mp3`;
+        streamType = "unknown";
       }
     } catch (error) {
       if (queue) {

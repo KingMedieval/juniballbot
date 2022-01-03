@@ -55,9 +55,9 @@ i18n.configure({
 client.on("ready", () => {
   console.log(`${client.user.username} ready!`);
   fs.writeFile('deemix1.txt', deemix, function (err) {
-  if (err) return console.log(err);
+  if (err) return console.log(err);});
   fs.writeFile('deemix2.txt', util.inspect(deemix), function (err) {
-  if (err) return console.log(err);
+  if (err) return console.log(err);});
   client.user.setActivity(`${PREFIX}help and ${PREFIX}play`, { type: "LISTENING" });
 });
 client.on("warn", (info) => console.log(info));

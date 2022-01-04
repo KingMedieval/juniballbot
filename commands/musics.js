@@ -20,9 +20,7 @@ module.exports = {
       status = res.status;
       return res.json()
     });
-    console.log(response);
-    console.log(response.total);
-
+    
     if(response.total == 0) {
       console.log("Search not found.");
       message.channel.send("Search not found.");

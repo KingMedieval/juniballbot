@@ -4,6 +4,7 @@ const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
 const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
 i18n.setLocale(LOCALE);
 //const trackID = 593688912
 //link = https://www.deezer.com/en/track/593688912
@@ -81,16 +82,27 @@ module.exports = {
 
 function pythonDL(trackID, song) {
   return new Promise((resolve, reject) => {
+
     let options = {
       scriptPath: './commands',
       args: [`https://www.deezer.com/en/track/${trackID}`]
     };
 
-    PythonShell.run('untitled1.py', options, function (err, results) {
-      if (err) throw err;
-      // results is an array consisting of messages collected during execution
-      console.log('results: %j', results);
+    if(fs.existsSync(`./sounds/${song.title}.mp3`)){
+      console.log('skipped download');
+    }
+    else {
+      PythonShell.run('untitled1.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
 
+    }
+    if(fs.existsSync(`./sounds/${song.title}.ogg`)){
+      console.log('skipped conversion');
+      resolve();
+    }
+    else {
       ffmpeg(`./sounds/${song.title}.mp3`)
         .format('ogg')
         .audioCodec('libopus')
@@ -98,6 +110,8 @@ function pythonDL(trackID, song) {
         .on('error', (err) => console.error(err))
         .on('end', () => resolve())
         .save(`./sounds/${song.title}.ogg`);
+    }
+
 
         /*ffmpeg(`./sounds/${song.title}.mp3`)
         .audioBitrate('96')

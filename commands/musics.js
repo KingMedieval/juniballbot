@@ -94,7 +94,7 @@ function pythonDL(trackID, song) {
       ffmpeg(`./sounds/${song.title}.mp3`)
         .format('ogg')
         .audioCodec('libopus')
-        .audioQuality(0)
+        //.audioQuality(0)
         .audioBitrate('96k')
         .on('error', (err) => console.error(err))
         .on('end', () => resolve())

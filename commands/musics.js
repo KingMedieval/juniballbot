@@ -98,9 +98,11 @@ function pythonDL(trackID, song) {
         console.log('results: %j', results);
 
     }
+
     if(fs.existsSync(`./sounds/${song.title}.ogg`)){
       console.log('skipped conversion');
       resolve();
+      });
     }
     else {
       ffmpeg(`./sounds/${song.title}.mp3`)
@@ -119,6 +121,6 @@ function pythonDL(trackID, song) {
         .on('end', () => console.log('Finished!'))
         .save(`./sounds/${song.title} - 96ver.mp3`)*/
 
-    });
+
   });
 };

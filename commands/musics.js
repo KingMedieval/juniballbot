@@ -23,7 +23,7 @@ module.exports = {
     console.log(response);
     console.log(response.total);
 
-    if(response.total = '0') {
+    if(response.total == 0) {
       console.log("Search not found.");
       message.channel.send("Search not found.");
       return;

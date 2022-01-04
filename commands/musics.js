@@ -26,18 +26,21 @@ module.exports = {
       message.channel.send("no results");
       return;
     }
+    else {
+      let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
+      console.log(file_name);
+      trackID = response.data[0].id;
+
+      song = {
+        title: `${response.data[0].artist.name} - ${response.data[0].title}`,
+        url: response.data[0].link,
+        duration: response.data[0].duration
+      };
+      }
 
     console.log("1");
 
-    let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
-    console.log(file_name);
-    trackID = response.data[0].id;
 
-    song = {
-      title: `${response.data[0].artist.name} - ${response.data[0].title}`,
-      url: response.data[0].link,
-      duration: response.data[0].duration
-    };
 
     /*var fs = require('fs');
     await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {

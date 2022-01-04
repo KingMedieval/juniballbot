@@ -40,7 +40,7 @@ module.exports = {
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
-
+    conversion(song);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -90,15 +90,21 @@ function pythonDL(trackID, song) {
 
     if(fs.existsSync(`./sounds/${song.title}.mp3`)){
       console.log('skipped download');
+      resolve();
     }
     else {
       PythonShell.run('untitled1.py', options, function (err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
-        });
+        resolve();
+      });
     }
+  });
+};
 
+function conversion(song) {
+  return new Promise((resolve, reject) => {
     if(fs.existsSync(`./sounds/${song.title}.ogg`)){
       console.log('skipped conversion');
       resolve();
@@ -115,14 +121,5 @@ function pythonDL(trackID, song) {
         })
         .save(`./sounds/${song.title}.ogg`);
     }
-
-
-        /*ffmpeg(`./sounds/${song.title}.mp3`)
-        .audioBitrate('96')
-        .on('error', (err) => console.error(err))
-        .on('end', () => console.log('Finished!'))
-        .save(`./sounds/${song.title} - 96ver.mp3`)*/
-
-
   });
 };

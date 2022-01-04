@@ -109,7 +109,10 @@ function pythonDL(trackID, song) {
         .audioCodec('libopus')
         .audioQuality(0)
         .on('error', (err) => console.error(err))
-        .on('end', () => resolve())
+        .on('end', () => {
+          console.log('converted');
+          resolve();
+        })
         .save(`./sounds/${song.title}.ogg`);
     }
 

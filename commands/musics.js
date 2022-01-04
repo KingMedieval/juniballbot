@@ -29,7 +29,7 @@ module.exports = {
     }
     else {
       if(response.data[0].title.includes('/')) {
-        response.data[0].title.replace('/','_');
+        response.data[0].title = response.data[0].title.replace('/','_');
       }
       let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
       console.log(file_name);

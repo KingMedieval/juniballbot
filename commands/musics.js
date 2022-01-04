@@ -21,6 +21,12 @@ module.exports = {
       return res.json()
     });
 
+    if(response.total = 0) {
+      console.log("no results");
+      message.channel.send("no results");
+      return;
+    }
+
     console.log("1");
 
     let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;

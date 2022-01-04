@@ -16,11 +16,11 @@ module.exports = {
 
     searchID = args.join(" ");
 
-    response = await fetch(`https://api.deezer.com/search?q="${searchID}"`).then((res) => {
+    response = await fetch(`https://api.deezer.com/search?q="${searchID}"&order=RATING_DESC`).then((res) => {
       status = res.status;
       return res.json()
     });
-    
+
     if(response.total == 0) {
       console.log("Search not found.");
       message.channel.send("Search not found.");

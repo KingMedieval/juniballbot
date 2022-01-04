@@ -40,7 +40,7 @@ module.exports = {
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
-    conversion(song);
+    await conversion(song);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
     const serverQueue = message.client.queue.get(message.guild.id);

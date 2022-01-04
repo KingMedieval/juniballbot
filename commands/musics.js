@@ -96,13 +96,12 @@ function pythonDL(trackID, song) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
-
+        });
     }
 
     if(fs.existsSync(`./sounds/${song.title}.ogg`)){
       console.log('skipped conversion');
       resolve();
-      });
     }
     else {
       ffmpeg(`./sounds/${song.title}.mp3`)

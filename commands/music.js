@@ -3,6 +3,8 @@ const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
+const ffmpeg = require("fluent-ffmpeg");
+const fs = require("fs");
 i18n.setLocale(LOCALE);
 //const trackID = 593688912
 //link = https://www.deezer.com/en/track/593688912
@@ -10,35 +12,45 @@ i18n.setLocale(LOCALE);
 module.exports = {
   name: "music",
   description: "beta. deemix",
+  aliases: ["m"],
   async execute(message, args) {
 
     searchID = args.join(" ");
 
-    response = await fetch(`https://api.deezer.com/search?q="${searchID}"`).then((res) => {
+    response = await fetch(`https://api.deezer.com/search?q="${searchID}"&order=RANKING`).then((res) => {
       status = res.status;
       return res.json()
     });
 
+    if(response.total == 0) {
+      console.log("Search not found.");
+      message.channel.send("Search not found.");
+      return;
+    }
+    else {
+      let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
+      console.log(file_name);
+      trackID = response.data[0].id;
+
+      song = {
+        title: `${response.data[0].artist.name} - ${response.data[0].title}`,
+        url: response.data[0].link,
+        duration: response.data[0].duration
+      };
+      }
+
     console.log("1");
 
-    let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
-    console.log(file_name);
-    trackID = response.data[0].id;
 
-    song = {
-      title: `${response.data[0].artist.name} - ${response.data[0].title}`,
-      url: response.data[0].link,
-      duration: response.data[0].duration
-    };
 
     /*var fs = require('fs');
     await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {
         if ( err ) console.log('ERROR: ' + err);
     });*/
     console.log("2");
-    await pythonDL(trackID);
+    await pythonDL(trackID, song);
     console.log("3");
-
+    await conversion(song);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
     const serverQueue = message.client.queue.get(message.guild.id);
@@ -78,21 +90,46 @@ module.exports = {
   }
 };
 
-function pythonDL(trackID) {
+function pythonDL(trackID, song) {
   return new Promise((resolve, reject) => {
+
     let options = {
       scriptPath: './commands',
       args: [`https://www.deezer.com/en/track/${trackID}`]
     };
 
-    PythonShell.run('untitled1.py', options, function (err, results) {
-      //PythonShell.on('Paste here your arl:', function (message) {
-      //  PythonShell.send('1565afb649c55f87f26d28a57f0b1bba546cc9b992c554ceb93635b095527b4808d14eaadd4a637c130b8a1227db1e94a7f8084a78625889c1299681f42beec05ca1b2f7d889f11663b3f75a4fb3fdb5318a4413afdfcff67c3e5f53f3d74ecd');
-      //});
-      if (err) throw err;
-      // results is an array consisting of messages collected during execution
-      console.log('results: %j', results);
+    if(fs.existsSync(`./sounds/${song.title}.mp3`)){
+      console.log('skipped download');
       resolve();
-    });
+    }
+    else {
+      PythonShell.run('untitled1.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+        resolve();
+      });
+    }
+  });
+};
+
+function conversion(song) {
+  return new Promise((resolve, reject) => {
+    if(fs.existsSync(`./sounds/${song.title}.ogg`)){
+      console.log('skipped conversion');
+      resolve();
+    }
+    else {
+      ffmpeg(`./sounds/${song.title}.mp3`)
+        .format('ogg')
+        .audioCodec('libopus')
+        .audioQuality(0)
+        .on('error', (err) => console.error(err))
+        .on('end', () => {
+          console.log('converted');
+          resolve();
+        })
+        .save(`./sounds/${song.title}.ogg`);
+    }
   });
 };

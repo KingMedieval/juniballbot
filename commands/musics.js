@@ -12,6 +12,7 @@ i18n.setLocale(LOCALE);
 module.exports = {
   name: "musics",
   description: "beta. deemix",
+  aliases: ["ms"],
   async execute(message, args) {
 
     searchID = args.join(" ");

@@ -17,7 +17,7 @@ module.exports = {
 
     searchID = args.join(" ");
 
-    response = await fetch(`https://api.deezer.com/search?q="${searchID}"&order=RANKING`).then((res) => {
+    response = await fetch(`https://api.deezer.com/search?q="${searchID}"`).then((res) => {
       status = res.status;
       return res.json()
     });

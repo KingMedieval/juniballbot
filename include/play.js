@@ -2,6 +2,7 @@ const ytdl = require("ytdl-core-discord");
 const scdl = require("soundcloud-downloader").default;
 const { canModifyQueue, STAY_TIME, LOCALE } = require("../util/botUtil");
 const i18n = require("i18n");
+const fs = require("fs");
 i18n.setLocale(LOCALE);
 
 module.exports = {
@@ -46,8 +47,8 @@ module.exports = {
 
       }
       else if (song.url.includes("deezer.com")) {
-        stream = `./sounds/${song.title}.ogg`;
-        streamType = "unknown";
+        stream = fs.createReadStream(`./sounds/${song.title}.ogg`);
+        streamType = "ogg/opus";
       }
     } catch (error) {
       if (queue) {

@@ -25,7 +25,7 @@ module.exports = {
 
     if(response.total = '0') {
       console.log("Search not found.");
-      message.channel.send("no results");
+      message.channel.send("Search not found.");
       return;
     }
     else {

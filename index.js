@@ -111,12 +111,11 @@ client.on("message", async (message) => {
     console.error(error);
     message.reply(i18n.__("common.errorCommand")).catch(console.error);
   }
-}
+})
 client.on('messageReactionAdd', (reaction, user) => {
   if(reaction.emoji.name == '❌' && user.id != '739138646225059924') {
     if (reaction.message.author.id == '739138646225059924') {
       reaction.message.delete(reaction.message.lastMessageID);
     }
   }
-}
-);
+});

@@ -24,10 +24,23 @@ module.exports = {
 
     if(response.total == 0) {
       console.log("Search not found.");
-      message.channel.send("Search not found.");
+      let responseEmbed = new MessageEmbed()
+      .setTitle("Search not found");
+      .setDescription(`The search term ${args} did not come back with results`)
+      .setColor("#CC38B");
+
+      let responseMsg = await message.channel.send(responseEmbed);
+
       return;
     }
     else {
+      let responseEmbed = new MessageEmbed()
+      .setTitle("The song is loading....");
+      .setDescription("This may take a while. Please be patient.")
+      .setColor("#CC38B");
+
+      let responseMsg = await message.channel.send(responseEmbed);
+
       if(response.data[0].title.includes('/')) {
         response.data[0].title = response.data[0].title.replace('/','_');
       }
@@ -53,6 +66,7 @@ module.exports = {
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
+    responseMsg.delete().catch(console.error);
     await conversion(song);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);

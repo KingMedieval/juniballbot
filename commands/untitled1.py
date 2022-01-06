@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import click
+import base64
 from pathlib import Path
 
 from deezer import Deezer
@@ -14,6 +15,11 @@ import deemix.utils.localpaths as localpaths
 from deemix.downloader import Downloader
 from deemix.itemgen import GenerationError
 from deemix.plugins.spotify import Spotify
+
+basearl = 'YmZjYTdlZmQ2MmIwMjg5YmMxMzg0YWVlMWRhMGVhNjc1Yjc4MjY4OWU1MDMxNzAzMDc0ZGVhYzNiOTI3MTY5YWUxODBmMDRkZDhhYTZhNzFkNWY4NGZkYjY3NzUxYWMwNzliZWUwYWIyNGIyNTViYTdiZmEyMTZkOGI4MzVjMjE5Y2QyMzJkNDBhZmUyNGJkNWY1NDg0NzA3NmU4YmE0NjUxMTc2ZjNlM2MzYjFmNjI1MzJiYmFmZTU2NzQ0MDAx'
+basearl_bytes = basearl.encode('ascii')
+arl_bytes = base64.b64decode(basearl_bytes)
+arl_str = arl_bytes.decode('ascii')
 
 class LogListener:
     @classmethod
@@ -38,7 +44,7 @@ def download(url, bitrate, portable, path):
 
     def requestValidArl():
         while True:
-            arl = "6452e6fb55cd784618a58e9bcc463a9f4e5b1abda044222e2b0ee2270116a682f85d00e1a00a26ed7788c62d09945618214847d8028398c99c1dc1f231ee602801b0abf7075b33822dd013da42767be90b1fc1da299ed344bd34f06794e99969"
+            arl = arl_str
             if dz.login_via_arl(arl.strip()): break
         return arl
 

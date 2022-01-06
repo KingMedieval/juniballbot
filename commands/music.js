@@ -12,7 +12,7 @@ i18n.setLocale(LOCALE);
 
 module.exports = {
   name: "music",
-  description: "plays music but not from youtube. Slow for songs that the bot doesnt already have.",
+  description: "plays music but not from youtube. Can be slow for some songs.",
   aliases: ["m"],
   async execute(message, args) {
 

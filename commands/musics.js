@@ -12,7 +12,7 @@ i18n.setLocale(LOCALE);
 
 module.exports = {
   name: "musics",
-  description: "beta. deemix",
+  description: "plays music but not from youtube (experimental)",
   aliases: ["ms"],
   async execute(message, args) {
 

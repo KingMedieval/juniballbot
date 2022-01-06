@@ -1,4 +1,5 @@
 const { PREFIX, LOCALE } = require("../util/botUtil");
+const { MessageEmbed } = require("discord.js");
 const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
@@ -11,7 +12,7 @@ i18n.setLocale(LOCALE);
 
 module.exports = {
   name: "music",
-  description: "beta. deemix",
+  description: "plays music but not from youtube. Slow for songs that the bot doesnt already have.",
   aliases: ["m"],
   async execute(message, args) {
 
@@ -24,10 +25,26 @@ module.exports = {
 
     if(response.total == 0) {
       console.log("Search not found.");
-      message.channel.send("Search not found.");
+      let responseEmbed = new MessageEmbed()
+      .setTitle("Search not found")
+      .setDescription(`The search term ${searchID} did not come back with results`)
+      .setColor("#DC143C");
+
+      let responseMsg = await message.channel.send(responseEmbed);
+
       return;
     }
     else {
+      let responseEmbed = new MessageEmbed()
+      .setTitle("The song is loading....")
+      .setDescription("This may take a while. Please be patient.")
+      .setColor("#CC38B");
+
+      responseMsg = await message.channel.send(responseEmbed);
+
+      if(response.data[0].title.includes('/')) {
+        response.data[0].title = response.data[0].title.replace('/','_');
+      }
       let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
       console.log(file_name);
       trackID = response.data[0].id;
@@ -50,6 +67,7 @@ module.exports = {
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
+    responseMsg.delete().catch(console.error);
     await conversion(song);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);

@@ -16,7 +16,7 @@ module.exports = {
 
 function video(message) {
   if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
-  rndSauce = Math.floor(Math.random() * 8);
+  rndSauce = Math.floor(Math.random() * 7);
   if (rndSauce === 0) {
     sauce = 'https://www.reddit.com/r/porn_gifs/random/.json'
   }
@@ -33,14 +33,12 @@ function video(message) {
     sauce = 'https://www.reddit.com/r/besthqporngifs/random/.json'
   }
   else if (rndSauce === 5) {
-    sauce = 'https://www.reddit.com/r/VerticalGifs/random/.json'
+    sauce = 'https://www.reddit.com/r/porninaminute/random/.json'
   }
   else if (rndSauce === 6) {
     sauce = 'https://www.reddit.com/r/CuteModeSlutMode/random/.json'
   }
-  else if (rndSauce === 7) {
-    sauce = 'https://www.reddit.com/r/porninaminute/random/.json'
-  }
+
   got(sauce).then(response => {
       let content = JSON.parse(response.body);
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;

@@ -28,7 +28,7 @@ module.exports = {
       let responseEmbed = new MessageEmbed()
       .setTitle("Search not found")
       .setDescription(`The search term ${searchID} did not come back with results`)
-      .setColor("#CC38B");
+      .setColor("#DC143C");
 
       let responseMsg = await message.channel.send(responseEmbed);
 

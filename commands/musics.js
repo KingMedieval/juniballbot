@@ -25,7 +25,7 @@ module.exports = {
     if(response.total == 0) {
       console.log("Search not found.");
       let responseEmbed = new MessageEmbed()
-      .setTitle("Search not found");
+      .setTitle("Search not found")
       .setDescription(`The search term ${args} did not come back with results`)
       .setColor("#CC38B");
 
@@ -35,7 +35,7 @@ module.exports = {
     }
     else {
       let responseEmbed = new MessageEmbed()
-      .setTitle("The song is loading....");
+      .setTitle("The song is loading....")
       .setDescription("This may take a while. Please be patient.")
       .setColor("#CC38B");
 

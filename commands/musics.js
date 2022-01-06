@@ -1,4 +1,5 @@
 const { PREFIX, LOCALE } = require("../util/botUtil");
+const { MessageEmbed } = require("discord.js");
 const { play } = require("../include/play");
 const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');

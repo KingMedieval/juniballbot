@@ -68,8 +68,8 @@ module.exports = {
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
-    responseMsg.delete().catch(console.error);
     await conversion(song);
+    responseMsg.delete().catch(console.error);
     const { channel } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
     const serverQueue = message.client.queue.get(message.guild.id);

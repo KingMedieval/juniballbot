@@ -40,7 +40,7 @@ module.exports = {
       .setDescription("This may take a while. Please be patient.")
       .setColor("#CC38B");
 
-      let responseMsg = await message.channel.send(responseEmbed);
+      responseMsg = await message.channel.send(responseEmbed);
 
       if(response.data[0].title.includes('/')) {
         response.data[0].title = response.data[0].title.replace('/','_');

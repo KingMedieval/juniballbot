@@ -17,8 +17,9 @@ module.exports = {
   async execute(message, args) {
 
     searchID = args.join(" ");
+    encodedSearchID = encodeURI(searchID);
 
-    response = await fetch(`https://api.deezer.com/search?q="${searchID}"`).then((res) => {
+    response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
       status = res.status;
       return res.json()
     });

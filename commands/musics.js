@@ -27,8 +27,8 @@ module.exports = {
       console.log("Search not found.");
       let responseEmbed = new MessageEmbed()
       .setTitle("Search not found")
-      .setDescription(`The search term ${args} did not come back with results`)
-      .setColor("#CC38B");
+      .setDescription(`The search term ${searchID} did not come back with results`)
+      .setColor("#CC338B");
 
       let responseMsg = await message.channel.send(responseEmbed);
 
@@ -38,7 +38,7 @@ module.exports = {
       let responseEmbed = new MessageEmbed()
       .setTitle("The song is loading....")
       .setDescription("This may take a while. Please be patient.")
-      .setColor("#CC38B");
+      .setColor("#CC338B");
 
       responseMsg = await message.channel.send(responseEmbed);
 

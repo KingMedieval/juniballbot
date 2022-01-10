@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { LOCALE } = require("../util/botUtil");
 const i18n = require("i18n");
-
+const fetch = require('node-fetch');
 i18n.setLocale(LOCALE);
 
 module.exports = {

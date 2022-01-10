@@ -27,10 +27,10 @@ module.exports = {
 
     let searchID = args.join(" ");
 
-    if (searchID.toLowerCase().indexOf("deezer.com") >= 0) {
+    if (searchID.includes("https://deezer.com")) {
       let trackID = searchID.slice(29);
       console.log(trackID);
-      response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
+      response = await fetch(`https://api.deezer.com/track/${trackID}`).then((res) => {
         status = res.status;
         return res.json()
       });
@@ -54,7 +54,7 @@ module.exports = {
 
         console.log(response);
 
-        if (response.title.indexOf('/') >= 0) {
+        if (response.title.includes('/')) {
           response.title = response.title.replace('/', '_');
 
           let file_name = `${response.artist.name} - ${response.title}`;

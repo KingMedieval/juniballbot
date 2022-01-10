@@ -60,7 +60,7 @@ module.exports = {
           file_name = `${response.artist.name} - ${response.title}`;
           console.log(file_name);
           song = {
-            title: file_name,
+            title: `${response.artist.name} - ${response.title}`,
             url: response.link,
             duration: response.duration
           };

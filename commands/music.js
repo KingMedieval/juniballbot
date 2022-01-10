@@ -57,7 +57,7 @@ module.exports = {
         if (response.title.includes('/')) {
           response.title = response.title.replace('/', '_');
 
-          let file_name = `${response.artist.name} - ${response.title}`;
+          file_name = `${response.artist.name} - ${response.title}`;
           console.log(file_name);
           song = {
             title: file_name,

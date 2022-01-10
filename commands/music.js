@@ -61,7 +61,6 @@ module.exports = {
             url: response.link,
             duration: response.duration
           };
-        }
       }
     } else {
       let encodedSearchID = encodeURI(searchID);

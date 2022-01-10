@@ -62,12 +62,12 @@ module.exports = {
 
         for (let song of songs) {
           await message.client.commands
-            .get("play")
+            .get("music")
             .execute(message, [resultsEmbed.fields[parseInt(song) - 1].name]);
         }
       } else {
         const choice = resultsEmbed.fields[parseInt(response.first()) - 1].name;
-        message.client.commands.get("play").execute(message, [choice]);
+        message.client.commands.get("music").execute(message, [choice]);
       }
 
       message.channel.activeCollector = false;

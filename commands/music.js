@@ -160,7 +160,9 @@ module.exports = {
       })).catch(console.error);
     }
 
-    fs.unlinkSync(`./sounds/${song.title}.mp3`);
+    if (fs.existsSync(`./sounds/${song.title}.mp3`)) {
+      fs.unlinkSync(`./sounds/${song.title}.mp3`);
+    }
 
   }
 };

@@ -30,7 +30,7 @@ module.exports = {
     if (searchID.toLowerCase().indexOf("deezer.com") >= 0) {
       let trackID = searchID.slice(29);
       console.log(trackID);
-      const response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
+      response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
         status = res.status;
         return res.json()
       });
@@ -51,6 +51,8 @@ module.exports = {
           .setColor("#CC38B");
 
         responseMsg = await message.channel.send(responseEmbed);
+
+        console.log(response);
 
         if (response.title.indexOf('/') >= 0) {
           response.title = response.title.replace('/', '_');

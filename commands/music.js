@@ -30,7 +30,7 @@ module.exports = {
     if (searchID.toLowerCase().indexOf("deezer.com") >= 0) {
       let trackID = searchID.slice(29);
       console.log(trackID);
-      response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
+      let response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
         status = res.status;
         return res.json()
       });

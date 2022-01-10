@@ -106,6 +106,8 @@ module.exports = {
       return message.channel.send(i18n.__('play.cantJoinChannel', {error: error})).catch(console.error);
     }
 
+    fs.unlinkSync(`./sounds/${song.title}.ogg`);
+
   }
 };
 
@@ -117,7 +119,7 @@ function pythonDL(trackID, song) {
       args: [`https://www.deezer.com/en/track/${trackID}`]
     };
 
-    if(fs.existsSync(`./sounds/${song.title}.mp3`)){
+    if(fs.existsSync(`./sounds/${song.title}.ogg`)){
       console.log('skipped download');
       resolve();
     }

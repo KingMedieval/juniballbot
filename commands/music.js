@@ -1,7 +1,16 @@
-const { PREFIX, LOCALE } = require("../util/botUtil");
-const { MessageEmbed } = require("discord.js");
-const { play } = require("../include/play");
-const { PythonShell } = require('python-shell');
+const {
+  PREFIX,
+  LOCALE
+} = require("../util/botUtil");
+const {
+  MessageEmbed
+} = require("discord.js");
+const {
+  play
+} = require("../include/play");
+const {
+  PythonShell
+} = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
 const ffmpeg = require("fluent-ffmpeg");
@@ -16,35 +25,73 @@ module.exports = {
   aliases: ["m"],
   async execute(message, args) {
 
-    searchID = args.join(" ");
-    encodedSearchID = encodeURI(searchID);
+    let searchID = args.join(" ");
+
+    if (searchID.includes("deezer.com")) {
+      let trackID = searchID.splice(29);
+      console.log(trackID);
+      response = await fetch(`https://api.deezer.com/track/"${trackID}"`).then((res) => {
+        status = res.status;
+        return res.json()
+      });
+      if (status == 800) {
+        console.log("Search not found.");
+        let responseEmbed = new MessageEmbed()
+          .setTitle("Search not found")
+          .setDescription(`The search term ${searchID} did not come back with results`)
+          .setColor("#DC143C");
+
+        let responseMsg = await message.channel.send(responseEmbed);
+
+        return;
+      } else {
+        let responseEmbed = new MessageEmbed()
+          .setTitle("The song is loading....")
+          .setDescription("This may take a while. Please be patient.")
+          .setColor("#CC38B");
+
+        responseMsg = await message.channel.send(responseEmbed);
+
+        if (response.title.includes('/')) {
+          response.title = response.title.replace('/', '_');
+
+          let file_name = `${response.artist.name} - ${response.title}`;
+          console.log(file_name);
+          song = {
+            title: file_name,
+            url: response.link,
+            duration: response.duration
+          };
+        }
+      }
+    }
+    let encodedSearchID = encodeURI(searchID);
 
     response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
       status = res.status;
       return res.json()
     });
 
-    if(response.total == 0) {
+    if (response.total == 0) {
       console.log("Search not found.");
       let responseEmbed = new MessageEmbed()
-      .setTitle("Search not found")
-      .setDescription(`The search term ${searchID} did not come back with results`)
-      .setColor("#DC143C");
+        .setTitle("Search not found")
+        .setDescription(`The search term ${searchID} did not come back with results`)
+        .setColor("#DC143C");
 
       let responseMsg = await message.channel.send(responseEmbed);
 
       return;
-    }
-    else {
+    } else {
       let responseEmbed = new MessageEmbed()
-      .setTitle("The song is loading....")
-      .setDescription("This may take a while. Please be patient.")
-      .setColor("#CC38B");
+        .setTitle("The song is loading....")
+        .setDescription("This may take a while. Please be patient.")
+        .setColor("#CC38B");
 
       responseMsg = await message.channel.send(responseEmbed);
 
-      if(response.data[0].title.includes('/')) {
-        response.data[0].title = response.data[0].title.replace('/','_');
+      if (response.data[0].title.includes('/')) {
+        response.data[0].title = response.data[0].title.replace('/', '_');
       }
       let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
       console.log(file_name);
@@ -55,7 +102,7 @@ module.exports = {
         url: response.data[0].link,
         duration: response.data[0].duration
       };
-      }
+    }
 
     console.log("1");
 
@@ -70,7 +117,9 @@ module.exports = {
     console.log("3");
     await conversion(song);
     responseMsg.delete().catch(console.error);
-    const { channel } = message.member.voice;
+    const {
+      channel
+    } = message.member.voice;
     const queue = message.client.queue.get(message.guild.id);
     const serverQueue = message.client.queue.get(message.guild.id);
 
@@ -87,7 +136,10 @@ module.exports = {
     if (serverQueue) {
       serverQueue.songs.push(song);
       return serverQueue.textChannel
-        .send(i18n.__mf("play.queueAdded", { title: song.title, author: message.author }))
+        .send(i18n.__mf("play.queueAdded", {
+          title: song.title,
+          author: message.author
+        }))
         .catch(console.error);
     }
 
@@ -103,7 +155,9 @@ module.exports = {
       console.error(error);
       message.client.queue.delete(message.guild.id);
       await channel.leave();
-      return message.channel.send(i18n.__('play.cantJoinChannel', {error: error})).catch(console.error);
+      return message.channel.send(i18n.__('play.cantJoinChannel', {
+        error: error
+      })).catch(console.error);
     }
 
     fs.unlinkSync(`./sounds/${song.title}.mp3`);
@@ -119,12 +173,11 @@ function pythonDL(trackID, song) {
       args: [`https://www.deezer.com/en/track/${trackID}`]
     };
 
-    if(fs.existsSync(`./sounds/${song.title}.ogg`)){
+    if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
       console.log('skipped download');
       resolve();
-    }
-    else {
-      PythonShell.run('untitled1.py', options, function (err, results) {
+    } else {
+      PythonShell.run('untitled1.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
@@ -136,11 +189,10 @@ function pythonDL(trackID, song) {
 
 function conversion(song) {
   return new Promise((resolve, reject) => {
-    if(fs.existsSync(`./sounds/${song.title}.ogg`)){
+    if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
       console.log('skipped conversion');
       resolve();
-    }
-    else {
+    } else {
       ffmpeg(`./sounds/${song.title}.mp3`)
         .format('ogg')
         .audioCodec('libopus')

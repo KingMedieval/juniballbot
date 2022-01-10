@@ -32,7 +32,7 @@ module.exports = {
         if(response.data[0].title.includes('/')) {
           response.data[0].title = response.data[0].title.replace('/','_');
         }
-        response.map((data[0], index) => resultsEmbed.addField(data[0].link, `${index + 1}. ${data[0].title} - ${data[0].artist.name}`))
+        response.map((data, index) => resultsEmbed.addField(data.link, `${index + 1}. ${data.title} - ${data.artist.name}`))
         let resultsMessage = await message.channel.send(resultsEmbed);
         function filter(msg) {
           const pattern = /^[0-9]{1,2}(\s*,\s*[0-9]{1,2})*$/;

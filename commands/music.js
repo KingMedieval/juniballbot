@@ -28,7 +28,7 @@ module.exports = {
     let searchID = args.join(" ");
 
     if (searchID.includes("https://www.deezer.com")) {
-      let trackID = searchID.slice(29);
+      trackID = searchID.slice(29);
       console.log(trackID);
       response = await fetch(`https://api.deezer.com/track/${trackID}`).then((res) => {
         status = res.status;

@@ -52,11 +52,8 @@ module.exports = {
 
         responseMsg = await message.channel.send(responseEmbed);
 
-        console.log(response);
-
         if (response.title.includes('/')) {
-          response.title = response.title.replace('/', '_');
-
+          response.title = response.title.replace('/', '_'); }
           file_name = `${response.artist.name} - ${response.title}`;
           console.log(file_name);
           song = {

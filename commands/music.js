@@ -64,45 +64,47 @@ module.exports = {
           };
         }
       }
-    }
-    let encodedSearchID = encodeURI(searchID);
-
-    response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
-      status = res.status;
-      return res.json()
-    });
-
-    if (response.total == 0) {
-      console.log("Search not found.");
-      let responseEmbed = new MessageEmbed()
-        .setTitle("Search not found")
-        .setDescription(`The search term ${searchID} did not come back with results`)
-        .setColor("#DC143C");
-
-      let responseMsg = await message.channel.send(responseEmbed);
-
-      return;
     } else {
-      let responseEmbed = new MessageEmbed()
-        .setTitle("The song is loading....")
-        .setDescription("This may take a while. Please be patient.")
-        .setColor("#CC38B");
+      let encodedSearchID = encodeURI(searchID);
 
-      responseMsg = await message.channel.send(responseEmbed);
+      response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
+        status = res.status;
+        return res.json()
+      });
 
-      if (response.data[0].title.includes('/')) {
-        response.data[0].title = response.data[0].title.replace('/', '_');
+      if (response.total == 0) {
+        console.log("Search not found.");
+        let responseEmbed = new MessageEmbed()
+          .setTitle("Search not found")
+          .setDescription(`The search term ${searchID} did not come back with results`)
+          .setColor("#DC143C");
+
+        let responseMsg = await message.channel.send(responseEmbed);
+
+        return;
+      } else {
+        let responseEmbed = new MessageEmbed()
+          .setTitle("The song is loading....")
+          .setDescription("This may take a while. Please be patient.")
+          .setColor("#CC38B");
+
+        responseMsg = await message.channel.send(responseEmbed);
+
+        if (response.data[0].title.includes('/')) {
+          response.data[0].title = response.data[0].title.replace('/', '_');
+        }
+        let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
+        console.log(file_name);
+        trackID = response.data[0].id;
+
+        song = {
+          title: `${response.data[0].artist.name} - ${response.data[0].title}`,
+          url: response.data[0].link,
+          duration: response.data[0].duration
+        };
       }
-      let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
-      console.log(file_name);
-      trackID = response.data[0].id;
-
-      song = {
-        title: `${response.data[0].artist.name} - ${response.data[0].title}`,
-        url: response.data[0].link,
-        duration: response.data[0].duration
-      };
     }
+
 
     console.log("1");
 

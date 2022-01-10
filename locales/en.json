@@ -113,7 +113,7 @@
   },
   "search": {
     "description": "Search and select videos to play",
-    "usageReply": "Usage: {prefix}{name} <Video Name>",
+    "usageReply": "Usage: {prefix}{name} <Title>",
     "errorAlreadyCollector": "A message collector is already active in this channel.",
     "errorNotChannel": "You need to join a voice channel first!",
     "resultEmbedTtile": "**Reply with the song number you want to play**",

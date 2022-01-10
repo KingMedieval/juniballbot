@@ -27,6 +27,7 @@ module.exports = {
 
     try {
       const results = await youtube.searchVideos(search, 10);
+      console.log(results);
       results.map((video, index) => resultsEmbed.addField(video.shortURL, `${index + 1}. ${video.title}`));
 
       let resultsMessage = await message.channel.send(resultsEmbed);

@@ -106,7 +106,7 @@ module.exports = {
       return message.channel.send(i18n.__('play.cantJoinChannel', {error: error})).catch(console.error);
     }
 
-    fs.unlinkSync(`./sounds/${song.title}.ogg`);
+    fs.unlinkSync(`./sounds/${song.title}.mp3`);
 
   }
 };

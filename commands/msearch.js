@@ -21,7 +21,7 @@ module.exports = {
 
       let resultsEmbed = new MessageEmbed()
         .setTitle(i18n.__("search.resultEmbedTtile"))
-        .setDescription(i18n.__mf("search.resultEmbedDesc", { search: search }))
+        .setDescription(i18n.__mf("search.resultEmbedDesc", { search: searchID }))
         .setColor("#F8AA2A");
 
       try {

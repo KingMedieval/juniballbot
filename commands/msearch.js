@@ -16,12 +16,29 @@ module.exports = {
       if (!message.member.voice.channel)
         return message.reply(i18n.__("search.errorNotChannel")).catch(console.error);
 
-      const search = args.join(" ");
+        searchID = args.join(" ");
+        encodedSearchID = encodeURI(searchID);
 
       let resultsEmbed = new MessageEmbed()
         .setTitle(i18n.__("search.resultEmbedTtile"))
         .setDescription(i18n.__mf("search.resultEmbedDesc", { search: search }))
         .setColor("#F8AA2A");
+
+      try {
+        response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
+          status = res.status;
+          return res.json()
+        });
+        if(response.data[0].title.includes('/')) {
+          response.data[0].title = response.data[0].title.replace('/','_');
+        }
+        response.map((data[0], index) => resultsEmbed.addField(data[0].link, `${index + 1}. ${data[0].title} - ${data[0].artist.name}`))
+        let resultsMessage = await message.channel.send(resultsEmbed);
+        function filter(msg) {
+          const pattern = /^[0-9]{1,2}(\s*,\s*[0-9]{1,2})*$/;
+          return pattern.test(msg.content);
+      }
+
 
 
   }

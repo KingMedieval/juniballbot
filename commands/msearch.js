@@ -37,7 +37,11 @@ module.exports = {
         function filter(msg) {
           const pattern = /^[0-9]{1,2}(\s*,\s*[0-9]{1,2})*$/;
           return pattern.test(msg.content);
-      }
+        }
+      } catch (error) {
+        console.error(error);
+        message.channel.activeCollector = false;
+        message.reply(error.message).catch(console.error);
 
 
 

@@ -103,15 +103,7 @@ module.exports = {
       }
     }
 
-
     console.log("1");
-
-
-
-    /*var fs = require('fs');
-    await fs.rename(`./sounds/${file_name}.mp3`, './sounds/currPlaying.mp3', function(err) {
-        if ( err ) console.log('ERROR: ' + err);
-    });*/
     console.log("2");
     await pythonDL(trackID, song);
     console.log("3");
@@ -163,7 +155,6 @@ module.exports = {
     if (fs.existsSync(`./sounds/${song.title}.mp3`)) {
       fs.unlinkSync(`./sounds/${song.title}.mp3`);
     }
-
   }
 };
 

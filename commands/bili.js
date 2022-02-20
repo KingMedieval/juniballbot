@@ -83,7 +83,7 @@ function pythonDL(searchID) {
 
     let options = {
       scriptPath: './commands',
-      args: [`--format=flv360 '${searchID}'`]
+      args: [`--format=flv360 \\'${searchID}\\'`]
     };
 
       PythonShell.run('you-get.py', options, function(err, results) {

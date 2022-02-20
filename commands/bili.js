@@ -80,17 +80,14 @@ module.exports = {
 
 function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
-    let args1 = 'https://www.bilibili.com/video/BV1q34y1X718/'
+    let args1 = '-O bili "https://www.bilibili.com/video/BV1q34y1X718/"'
     let options = {
       scriptPath: './commands',
       args: args1
     };
     console.log(options.args);
 
-      PythonShell.run('you-get.py', {
-        scriptPath: './commands',
-        args: '-O bili "https://www.bilibili.com/video/BV1q34y1X718/"'},
-          function(err, results) {
+      PythonShell.run('you-get.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);

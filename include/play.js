@@ -50,6 +50,10 @@ module.exports = {
         stream = fs.createReadStream(`./sounds/${song.title}.ogg`);
         streamType = "ogg/opus";
       }
+      else if (song.url.includes("bilibili.com")) {
+        stream = fs.createReadStream(`./bilibli/bilitemp.ogg`);
+        streamType = "ogg/opus";
+      }
     } catch (error) {
       if (queue) {
         queue.songs.shift();

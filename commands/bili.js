@@ -23,11 +23,19 @@ module.exports = {
       .setColor("#CC38B");
 
     responseMsg = await message.channel.send(responseEmbed);
+    if (fs.existsSync(`./sounds/${song.title}.mp3`)) {
+      fs.unlinkSync(`./sounds/${song.title}.mp3`);
+    }
     console.log("1");
     console.log("2");
+    song = {
+      title: `Playing from BiliBili`,
+      url: searchID,
+      duration: 420
+    };
     await pythonDL(searchID);
     console.log("3");
-    await conversion(song);
+    await conversion();
     responseMsg.delete().catch(console.error);
     const {
       channel
@@ -55,7 +63,7 @@ module.exports = {
         .catch(console.error);
     }
 
-    queueConstruct.songs.push(song);
+    queueConstruct.songs.push();
 
     message.client.queue.set(message.guild.id, queueConstruct);
     console.log("4");
@@ -71,10 +79,6 @@ module.exports = {
         error: error
       })).catch(console.error);
     }
-
-    if (fs.existsSync(`./sounds/${song.title}.mp3`)) {
-      fs.unlinkSync(`./sounds/${song.title}.mp3`);
-    }
   }
 };
 
@@ -82,7 +86,7 @@ function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
     let options = {
       scriptPath: './commands',
-      args: ['--format=flv360', '-O', 'bili', `${searchID}`]
+      args: ['--format=flv360', '-O', 'bilitemp', '-o', './bilibili', '--no-caption', `${searchID}`]
     };
     console.log(options.args);
 
@@ -95,13 +99,9 @@ function pythonDL(searchID) {
   });
 };
 
-function conversion(song) {
+function conversion() {
   return new Promise((resolve, reject) => {
-    if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
-      console.log('skipped conversion');
-      resolve();
-    } else {
-      ffmpeg(`./sounds/${song.title}.mp3`)
+      ffmpeg(`./bilibli/bilitemp.flv`)
         .format('ogg')
         .audioCodec('libopus')
         .audioQuality(0)
@@ -110,7 +110,6 @@ function conversion(song) {
           console.log('converted');
           resolve();
         })
-        .save(`./sounds/${song.title}.ogg`);
-    }
+        .save(`./sounds/bilitemp.ogg`);
   });
 };

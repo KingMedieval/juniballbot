@@ -83,7 +83,7 @@ function pythonDL(searchID) {
     let argvs = `--format=flv360 -O bili '${searchID}'`
     let options = {
       scriptPath: './commands',
-      args: args
+      args: argvs
     };
     console.log(options.args);
 

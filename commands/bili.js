@@ -66,7 +66,7 @@ module.exports = {
         .catch(console.error);
     }
 
-    queueConstruct.songs.push();
+    queueConstruct.songs.push(song);
 
     message.client.queue.set(message.guild.id, queueConstruct);
     console.log("4");

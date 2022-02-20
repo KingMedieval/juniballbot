@@ -82,11 +82,11 @@ function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
 
     let options = {
-      scriptPath: './commands',
+      scriptPath: '/usr/local/lib/python3.9/dist-packages/you_get',
       args: [`'${searchID}'`]
     };
     console.log(options.args);
-      PythonShell.run('you-get.py', options, function(err, results) {
+      PythonShell.run('__main__.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);

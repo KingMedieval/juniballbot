@@ -160,7 +160,7 @@ function pythonDLL(trackID, song) {
       resolve();
     } else {
         try {
-          const { stdout, stderr } = await exec('ls | grep js');
+          const { stdout, stderr } = exec('ls | grep js');
           console.log('stdout:', stdout);
           console.log('stderr:', stderr);
         } catch (err)=>{

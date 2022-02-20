@@ -85,7 +85,7 @@ function pythonDL(searchID) {
       scriptPath: './commands',
       args: [`--format=flv360 \\'${searchID}\\'`]
     };
-    console.log(options);
+    console.log(options.args);
       PythonShell.run('you-get.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution

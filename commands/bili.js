@@ -83,7 +83,7 @@ function pythonDL(searchID) {
 
     let options = {
       scriptPath: '/usr/local/lib/python3.9/dist-packages/you_get',
-      args: [`'${searchID}'`]
+      args: [`'https://www.bilibili.com/video/BV1q34y1X718/'`]
     };
     console.log(options.args);
       PythonShell.run('__main__.py', options, function(err, results) {

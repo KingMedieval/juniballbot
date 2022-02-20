@@ -83,7 +83,7 @@ function pythonDL(searchID) {
 
     let options = {
       scriptPath: './commands',
-      args: [--file bili, `${searchID}`]
+      args: ['--file bili', `${searchID}`]
     };
     console.log(options.args);
 

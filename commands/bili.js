@@ -6,8 +6,6 @@ const fetch = require('node-fetch');
 const i18n = require("i18n");
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
 i18n.setLocale(LOCALE);
 //const trackID = 593688912
 //link = https://www.deezer.com/en/track/593688912
@@ -19,86 +17,15 @@ module.exports = {
   async execute(message, args) {
 
     let searchID = args.join(" ");
+    let responseEmbed = new MessageEmbed()
+      .setTitle("The song is loading....")
+      .setDescription("This may take a while. Please be patient.")
+      .setColor("#CC38B");
 
-    if (searchID.includes("https://www.deezer.com")) {
-      trackID = searchID.slice(29);
-      console.log(trackID);
-      response = await fetch(`https://api.deezer.com/track/${trackID}`).then((res) => {
-        status = res.status;
-        return res.json()
-      });
-      if (status == 800) {
-        console.log("Search not found.");
-        let responseEmbed = new MessageEmbed()
-          .setTitle("Search not found")
-          .setDescription(`The search term ${searchID} did not come back with results`)
-          .setColor("#DC143C");
-
-        let responseMsg = await message.channel.send(responseEmbed);
-
-        return;
-      } else {
-        let responseEmbed = new MessageEmbed()
-          .setTitle("The song is loading....")
-          .setDescription("This may take a while. Please be patient.")
-          .setColor("#CC38B");
-
-        responseMsg = await message.channel.send(responseEmbed);
-
-        if (response.title.includes('/')) {
-          response.title = response.title.replace('/', '_'); }
-          file_name = `${response.artist.name} - ${response.title}`;
-          console.log(file_name);
-          song = {
-            title: `${response.artist.name} - ${response.title}`,
-            url: response.link,
-            duration: response.duration
-          };
-      }
-    } else {
-      let encodedSearchID = encodeURI(searchID);
-
-      response = await fetch(`https://api.deezer.com/search?q="${encodedSearchID}"`).then((res) => {
-        status = res.status;
-        return res.json()
-      });
-
-      if (response.total == 0) {
-        console.log("Search not found.");
-        let responseEmbed = new MessageEmbed()
-          .setTitle("Search not found")
-          .setDescription(`The search term ${searchID} did not come back with results`)
-          .setColor("#DC143C");
-
-        let responseMsg = await message.channel.send(responseEmbed);
-
-        return;
-      } else {
-        let responseEmbed = new MessageEmbed()
-          .setTitle("The song is loading....")
-          .setDescription("This may take a while. Please be patient.")
-          .setColor("#CC38B");
-
-        responseMsg = await message.channel.send(responseEmbed);
-
-        if (response.data[0].title.includes('/')) {
-          response.data[0].title = response.data[0].title.replace('/', '_');
-        }
-        let file_name = `${response.data[0].artist.name} - ${response.data[0].title}`;
-        console.log(file_name);
-        trackID = response.data[0].id;
-
-        song = {
-          title: `${response.data[0].artist.name} - ${response.data[0].title}`,
-          url: response.data[0].link,
-          duration: response.data[0].duration
-        };
-      }
-    }
-
+    responseMsg = await message.channel.send(responseEmbed);
     console.log("1");
     console.log("2");
-    await pythonDLL(trackID, song);
+    await pythonDL(searchID);
     console.log("3");
     await conversion(song);
     responseMsg.delete().catch(console.error);
@@ -151,45 +78,20 @@ module.exports = {
   }
 };
 
-function pythonDLL(trackID, song) {
-  return new Promise((resolve, reject) => {
-
-    let dlurl = `https://www.deezer.com/en/track/${trackID}`;
-    if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
-      console.log('skipped download');
-      resolve();
-    } else {
-        try {
-          const { stdout, stderr } = exec(`deemix ${dlurl}`);
-          console.log('stdout:', stdout);
-          console.log('stderr:', stderr);
-        } catch (err) {
-          console.error(err);
-        };
-      resolve();
-    }
-  });
-};
-
-function pythonDL(trackID, song) {
+function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
 
     let options = {
       scriptPath: './commands',
-      args: [`https://www.deezer.com/en/track/${trackID}`]
+      args: [`--format=flv360 '${searchID}'`]
     };
 
-    if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
-      console.log('skipped download');
-      resolve();
-    } else {
-      PythonShell.run('untitled1.py', options, function(err, results) {
+      PythonShell.run('you-get.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
         resolve();
       });
-    }
   });
 };
 

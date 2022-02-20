@@ -161,7 +161,7 @@ function pythonDL(trackID, song) {
       console.log('skipped download');
       resolve();
     } else {
-      PythonShell.run('untitled1.py', options, function(err, results) {
+      PythonShell.run('deemix.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);

@@ -80,12 +80,10 @@ module.exports = {
 
 function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
-    let args1 = '--format=flv360';
-    let args2 = '-O bili'
-    let args3 = `'${searchID}'`
+    let args1 = 'https://www.bilibili.com/video/BV1q34y1X718/'
     let options = {
       scriptPath: './commands',
-      args: [args1, args2, args3]
+      args: args1
     };
     console.log(options.args);
 

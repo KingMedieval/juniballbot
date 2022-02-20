@@ -83,9 +83,10 @@ function pythonDL(searchID) {
 
     let options = {
       scriptPath: './commands',
-      args: ['--debug "https://www.bilibili.com/video/BV1q34y1X718"']
+      args: ['--format=flv720 "https://www.bilibili.com/video/BV1q34y1X718"']
     };
     console.log(options.args);
+
       PythonShell.run('you-get.py', options, function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution

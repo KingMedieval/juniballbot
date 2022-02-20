@@ -156,7 +156,7 @@ function pythonDL(trackID, song) {
       scriptPath: './commands',
       args: [`https://www.deezer.com/en/track/${trackID}`]
     };
-
+    console.log(options.args);
     if (fs.existsSync(`./sounds/${song.title}.ogg`)) {
       console.log('skipped download');
       resolve();

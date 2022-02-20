@@ -13,9 +13,9 @@ i18n.setLocale(LOCALE);
 //link = https://www.deezer.com/en/track/593688912
 
 module.exports = {
-  name: "music",
+  name: "bili",
   description: "plays music but not from youtube. Can be slow for some songs.",
-  aliases: ["m"],
+  aliases: ["bi"],
   async execute(message, args) {
 
     let searchID = args.join(" ");

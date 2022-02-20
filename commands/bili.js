@@ -37,7 +37,7 @@ module.exports = {
       duration: 420
     };
     await pythonDL(searchID);
-    console.log(`3, ${searchID}`);
+    console.log(`3, ${song.url}`);
     await conversion();
     responseMsg.delete().catch(console.error);
     const {

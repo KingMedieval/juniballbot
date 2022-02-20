@@ -83,7 +83,7 @@ function pythonDL(searchID) {
 
     let options = {
       scriptPath: './commands',
-      args: ['--format=flv720 "https://www.bilibili.com/video/BV1q34y1X718"']
+      args: [`${searchID}`]
     };
     console.log(options.args);
 

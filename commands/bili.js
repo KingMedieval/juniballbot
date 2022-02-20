@@ -163,9 +163,9 @@ function pythonDLL(trackID, song) {
           const { stdout, stderr } = exec('ls | grep js');
           console.log('stdout:', stdout);
           console.log('stderr:', stderr);
-        } catch (err)=>{
+        } catch (err) {
           console.error(err);
-    };
+        };
       resolve();
     }
   });

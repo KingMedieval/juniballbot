@@ -51,7 +51,7 @@ module.exports = {
         streamType = "ogg/opus";
       }
       else if (song.url.includes("bilibili.com")) {
-        stream = fs.createReadStream(`./bilibli/bilitemp.ogg`);
+        stream = fs.createReadStream(`./bilibili/bilitemp.ogg`);
         streamType = "ogg/opus";
       }
     } catch (error) {

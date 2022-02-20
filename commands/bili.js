@@ -23,8 +23,11 @@ module.exports = {
       .setColor("#CC38B");
 
     responseMsg = await message.channel.send(responseEmbed);
-    if (fs.existsSync(`./sounds/${song.title}.mp3`)) {
-      fs.unlinkSync(`./sounds/${song.title}.mp3`);
+    if (fs.existsSync(`./bilibili/bilitemp.flv`)) {
+      fs.unlinkSync(`./bilibili/bilitemp.flv`);
+    }
+    if (fs.existsSync(`./bilibili/bilitemp.ogg`)) {
+      fs.unlinkSync(`./bilibili/bilitemp.ogg`);
     }
     console.log("1");
     console.log("2");
@@ -101,7 +104,7 @@ function pythonDL(searchID) {
 
 function conversion() {
   return new Promise((resolve, reject) => {
-      ffmpeg(`./bilibli/bilitemp.flv`)
+      ffmpeg(`./bilibili/bilitemp.flv`)
         .format('ogg')
         .audioCodec('libopus')
         .audioQuality(0)
@@ -110,6 +113,6 @@ function conversion() {
           console.log('converted');
           resolve();
         })
-        .save(`./sounds/bilitemp.ogg`);
+        .save(`./bilibili/bilitemp.ogg`);
   });
 };

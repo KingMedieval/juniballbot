@@ -4,8 +4,9 @@ import getopt
 import os
 import platform
 import sys
-from .version import script_name, __version__
-from .util import git, log
+import you-get as uget
+from uget.version import script_name, __version__
+from uget.util import git, log
 
 _options = [
     'help',

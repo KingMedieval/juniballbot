@@ -78,18 +78,18 @@ def main_dev(**kwargs):
         if args:
             if 'gui' in conf and conf['gui']:
                 # Enter GUI mode.
-                from .gui import gui_main
+                from you_get.gui import gui_main
                 gui_main(*args, **conf)
             else:
                 # Enter console mode.
-                from .console import console_main
+                from you_get.console import console_main
                 console_main(*args, **conf)
 
 def main(**kwargs):
     """Main entry point.
     you-get (legacy)
     """
-    from .common import main
+    from you_get.common import main
     main(**kwargs)
 
 if __name__ == '__main__':

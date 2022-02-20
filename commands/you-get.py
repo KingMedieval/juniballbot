@@ -5,8 +5,8 @@ import os
 import platform
 import sys
 import importlib
-from 'you-get'.version import script_name, __version__
-from 'you-get'.util import git, log
+from you_get.version import script_name, __version__
+from you_get.util import git, log
 
 _options = [
     'help',

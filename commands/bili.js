@@ -89,7 +89,7 @@ function pythonDL(searchID) {
   return new Promise((resolve, reject) => {
     let options = {
       scriptPath: './commands',
-      args: ['--format=flv360', '-O', 'bilitemp', '-o', './bilibili', '--no-caption', `${searchID}`]
+      args: ['--format=flv720', '-O', 'bilitemp', '-o', './bilibili', '--no-caption', `${searchID}`]
     };
     console.log(options.args);
 

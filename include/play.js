@@ -47,10 +47,12 @@ module.exports = {
         }
       }
       else if (song.url.includes("deezer.com")) {
+        console.log('deeznuts');
         stream = fs.createReadStream(`./sounds/${song.title}.ogg`);
         streamType = "ogg/opus";
       }
       else if (song.url.includes("bilibili.com")) {
+        console.log('bili');
         stream = fs.createReadStream(`./bilibili/bilitemp.ogg`);
         streamType = "ogg/opus";
       }

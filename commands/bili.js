@@ -159,16 +159,13 @@ function pythonDLL(trackID, song) {
       console.log('skipped download');
       resolve();
     } else {
-      exec(`deemix ${dlurl}`, (err, stdout, stderr) => {
-        if (err) {
-          //some err occurred
-          console.error(err)
-        } else {
-          // the *entire* stdout and stderr (buffered)
-          console.log(`stdout: ${stdout}`);
-          console.log(`stderr: ${stderr}`);
-        }
-      });
+        try {
+          const { stdout, stderr } = await exec('ls | grep js');
+          console.log('stdout:', stdout);
+          console.log('stderr:', stderr);
+        } catch (err)=>{
+          console.error(err);
+    };
       resolve();
     }
   });

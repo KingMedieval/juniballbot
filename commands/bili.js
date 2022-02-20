@@ -87,7 +87,7 @@ function pythonDL(searchID) {
     };
     console.log(options.args);
 
-      PythonShell.run('you-get.py', options, function(err, results) {
+      PythonShell.run('you-get.py', '-O bili "https://www.bilibili.com/video/BV1q34y1X718/""', function(err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);

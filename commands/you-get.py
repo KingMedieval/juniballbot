@@ -4,7 +4,8 @@ import getopt
 import os
 import platform
 import sys
-import you-get as uget
+import importlib
+uget = importlib.import_module("you-get")
 from uget.version import script_name, __version__
 from uget.util import git, log
 

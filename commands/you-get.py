@@ -5,9 +5,8 @@ import os
 import platform
 import sys
 import importlib
-uget = importlib.import_module("you-get")
-from uget.version import script_name, __version__
-from uget.util import git, log
+from 'you-get'.version import script_name, __version__
+from 'you-get'.util import git, log
 
 _options = [
     'help',

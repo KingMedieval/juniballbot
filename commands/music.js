@@ -1,16 +1,7 @@
-const {
-  PREFIX,
-  LOCALE
-} = require("../util/botUtil");
-const {
-  MessageEmbed
-} = require("discord.js");
-const {
-  play
-} = require("../include/play");
-const {
-  PythonShell
-} = require('python-shell');
+const { PREFIX, LOCALE } = require("../util/botUtil");
+const { MessageEmbed } = require("discord.js");
+const { play } = require("../include/play");
+const { PythonShell } = require('python-shell');
 const fetch = require('node-fetch');
 const i18n = require("i18n");
 const ffmpeg = require("fluent-ffmpeg");

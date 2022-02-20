@@ -37,7 +37,7 @@ module.exports = {
       duration: 420
     };
     await pythonDL(searchID);
-    console.log("3");
+    console.log(`3, ${searchID}`);
     await conversion();
     responseMsg.delete().catch(console.error);
     const {

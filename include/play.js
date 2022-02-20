@@ -37,14 +37,14 @@ module.exports = {
     try {
       if (song.url.includes("youtube.com")) {
         stream = await ytdl(song.url, { highWaterMark: 1 << 25 });
-      } else if (song.url.includes("soundcloud.com")) {
+      }
+      else if (song.url.includes("soundcloud.com")) {
         try {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.OPUS, SOUNDCLOUD_CLIENT_ID);
         } catch (error) {
           stream = await scdl.downloadFormat(song.url, scdl.FORMATS.MP3, SOUNDCLOUD_CLIENT_ID);
           streamType = "unknown";
         }
-
       }
       else if (song.url.includes("deezer.com")) {
         stream = fs.createReadStream(`./sounds/${song.title}.ogg`);

@@ -6,7 +6,7 @@ module.exports = {
   description: "POGGERS",
   execute(message) {
     const embed = new MessageEmbed();
-  	fetch('https://www.reddit.com/r/memes/random/.json').then(response => {
+  	await fetch('https://www.reddit.com/r/memes/random/.json').then(response => {
   			let content = response.body;
   			let permalink = content[0].data.children[0].data.permalink;
   			let memeUrl = `https://reddit.com${permalink}`;

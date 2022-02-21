@@ -39,7 +39,7 @@ function video(message) {
     sauce = 'https://www.reddit.com/r/CuteModeSlutMode/random/.json'
   }
 
-  fetch(sauce).then(response => {
+  await fetch(sauce).then(response => {
       let content = response.body;
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;
       console.log(nsfwGIFNEWImage);

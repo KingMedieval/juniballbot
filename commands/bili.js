@@ -48,7 +48,7 @@ module.exports = {
     console.log("2");
     await pythonDL(searchID, bvid);
     console.log(`3, ${song.url}`);
-    await conversion();
+    await conversion(bvid);
     responseMsg.delete().catch(console.error);
     const {
       channel

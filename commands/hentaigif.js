@@ -7,7 +7,7 @@ module.exports = {
   execute(message) {
     if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
     fetch('https://www.reddit.com/r/HENTAI_GIF/random/.json').then(response => {
-        let content = JSON.parse(response.body);
+        let content = response.body;
         let nsfwGIFNEWImage = content[0].data.children[0].data.url;
         if (nsfwGIFNEWImage.toLowerCase().indexOf("https://redgifs.com") >= 0) {
           let redID = nsfwGIFNEWImage.slice(26);

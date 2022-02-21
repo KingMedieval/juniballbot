@@ -40,7 +40,7 @@ function video(message) {
   }
 
   fetch(sauce).then(response => {
-      let content = JSON.parse(response.body);
+      let content = response.body;
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;
       console.log(nsfwGIFNEWImage);
       if (nsfwGIFNEWImage.toLowerCase().indexOf("https://redgifs.com") >= 0) {

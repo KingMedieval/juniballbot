@@ -1,4 +1,4 @@
-import got from 'got';
+const got = require('got');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {

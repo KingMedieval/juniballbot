@@ -177,7 +177,7 @@ function roulette(message) {
   else if (rndSauce === 53) {
     sauce = 'https://www.reddit.com/r/watersports/random/.json'
   }
-  await fetch(sauce).then(response => {
+  fetch(sauce).then((response) => {
       let content = response.body;
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;
       if (nsfwGIFNEWImage.toLowerCase().indexOf("https://i.redd.it") >= 0 || nsfwGIFNEWImage.toLowerCase().indexOf("https://i.imgur.com") >= 0 || nsfwGIFNEWImage.toLowerCase().indexOf("https://imgur.com") >= 0) {

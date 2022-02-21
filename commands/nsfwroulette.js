@@ -1,4 +1,4 @@
-const got = require('got');
+import got from 'got';
 const { MessageEmbed } = require('discord.js');
 
 var rndSauce = 0;

@@ -1,4 +1,4 @@
-const got = require('got');
+const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
   description: "Hentai 🔞",
   execute(message) {
     if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
-    got('https://www.reddit.com/r/HENTAI_GIF/random/.json').then(response => {
+    fetch('https://www.reddit.com/r/HENTAI_GIF/random/.json').then(response => {
         let content = JSON.parse(response.body);
         let nsfwGIFNEWImage = content[0].data.children[0].data.url;
         if (nsfwGIFNEWImage.toLowerCase().indexOf("https://redgifs.com") >= 0) {

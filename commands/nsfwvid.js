@@ -1,4 +1,4 @@
-const got = require('got');
+const fetch = require('node-fetch');
 const https = require('https');
 const { MessageEmbed } = require('discord.js');
 
@@ -39,7 +39,7 @@ function video(message) {
     sauce = 'https://www.reddit.com/r/CuteModeSlutMode/random/.json'
   }
 
-  got(sauce).then(response => {
+  fetch(sauce).then(response => {
       let content = JSON.parse(response.body);
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;
       console.log(nsfwGIFNEWImage);

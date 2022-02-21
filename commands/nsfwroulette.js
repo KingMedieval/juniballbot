@@ -1,4 +1,4 @@
-const got = require('got');
+const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
 
 var rndSauce = 0;
@@ -177,7 +177,7 @@ function roulette(message) {
   else if (rndSauce === 53) {
     sauce = 'https://www.reddit.com/r/watersports/random/.json'
   }
-  got(sauce).then(response => {
+  fetch(sauce).then(response => {
       let content = JSON.parse(response.body);
       let nsfwGIFNEWImage = content[0].data.children[0].data.url;
       if (nsfwGIFNEWImage.toLowerCase().indexOf("https://i.redd.it") >= 0 || nsfwGIFNEWImage.toLowerCase().indexOf("https://i.imgur.com") >= 0 || nsfwGIFNEWImage.toLowerCase().indexOf("https://imgur.com") >= 0) {

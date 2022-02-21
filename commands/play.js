@@ -46,8 +46,12 @@ module.exports = {
       return message.client.commands.get("playlist").execute(message, args);
     } else if (scdl.isValidUrl(url) && url.includes("/sets/")) {
       return message.client.commands.get("playlist").execute(message, args);
+    } else if (url.includes("deezer.com")) {
+      return message.client.commands.get("music").execute(message, args);
+    } else if (url.includes("bilibili.com")) {
+      return message.client.commands.get("bili").execute(message, args);
     }
-
+    
     if (mobileScRegex.test(url)) {
       try {
         https.get(url, function (res) {

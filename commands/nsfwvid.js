@@ -1,4 +1,4 @@
-const got = require('got');
+import got from 'got';
 const https = require('https');
 const { MessageEmbed } = require('discord.js');
 

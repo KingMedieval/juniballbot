@@ -4,9 +4,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: "hentaigif",
   description: "Hentai 🔞",
-  execute(message) {
+  async execute(message) {
     if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
-    response = fetch('https://www.reddit.com/r/HENTAI_GIF/random/.json').then((res) => {
+    response = await fetch('https://www.reddit.com/r/HENTAI_GIF/random/.json').then((res) => {
       status = res.status;
       return res.json()
     }).catch(console.error);

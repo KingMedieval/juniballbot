@@ -12,7 +12,7 @@ module.exports = {
   }
 };
 
-function roulette(message) {
+async function roulette(message) {
   if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
   rndSauce = Math.floor(Math.random() * 54);
   if (rndSauce === 0) {
@@ -177,7 +177,7 @@ function roulette(message) {
   else if (rndSauce === 53) {
     sauce = 'https://www.reddit.com/r/watersports/random/.json'
   }
-  response = fetch(sauce).then((res) => {
+  response = await fetch(sauce).then((res) => {
     status = res.status;
     return res.json()
   }).catch(console.error);

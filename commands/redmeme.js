@@ -4,13 +4,13 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: "redmeme",
   description: "☭POGGERS",
-  execute(message) {
+  async execute(message) {
     const embed = new MessageEmbed();
-  	response = fetch('https://www.reddit.com/r/CommunismMemes/random/.json').then((res) => {
+  	response = await fetch('https://www.reddit.com/r/CommunismMemes/random/.json').then((res) => {
       status = res.status;
       return res.json()
   	}).catch(console.error);
-    
+
     console.log(response);
     let permalink = response[0].data.children[0].data.permalink;
     let redmemeUrl = `https://reddit.com${permalink}`;

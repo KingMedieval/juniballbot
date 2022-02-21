@@ -4,9 +4,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: "meme",
   description: "POGGERS",
-  execute(message) {
+  async execute(message) {
     const embed = new MessageEmbed();
-  	response = fetch('https://www.reddit.com/r/memes/random/.json').then((res) => {
+  	response = await fetch('https://www.reddit.com/r/memes/random/.json').then((res) => {
       status = res.status;
       return res.json()
   	}).catch(console.error);

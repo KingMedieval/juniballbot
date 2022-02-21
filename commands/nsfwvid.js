@@ -14,7 +14,7 @@ module.exports = {
   }
 };
 
-function video(message) {
+async function video(message) {
   if(!message.channel.nsfw){ message.channel.send("This command can only be used in channels marked nsfw."); return; }
   rndSauce = Math.floor(Math.random() * 7);
   if (rndSauce === 0) {
@@ -39,7 +39,7 @@ function video(message) {
     sauce = 'https://www.reddit.com/r/CuteModeSlutMode/random/.json'
   }
 
-  response = fetch(sauce).then((res) => {
+  response = await fetch(sauce).then((res) => {
     status = res.status;
     return res.json()
   }).catch(console.error);

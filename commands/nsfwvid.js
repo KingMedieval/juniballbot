@@ -39,141 +39,143 @@ function video(message) {
     sauce = 'https://www.reddit.com/r/CuteModeSlutMode/random/.json'
   }
 
-  fetch(sauce).then((response) => {
-      let content = response;
-      let nsfwGIFNEWImage = content[0].data.children[0].data.url;
-      console.log(nsfwGIFNEWImage);
-      if (nsfwGIFNEWImage.toLowerCase().indexOf("https://redgifs.com") >= 0) {
-        let redID = nsfwGIFNEWImage.slice(26);
-        redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
-        https.get(redAPI, (resp) => {
-          if(resp.statusCode === 200) {
-            let data = '';
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              mp4Link = JSON.parse(data).gfyItem.mobileUrl;
-              message.channel.send(mp4Link)
-
-
-              console.log('Bot responded with: ' + nsfwGIFNEWImage);
-            });
-          }
-          else{
-            video(message);
-          }
-
-        }).on("error", (err) => {
-          console.log("Error: " + err.message);
-        });
-      }
-
-      else if (nsfwGIFNEWImage.toLowerCase().indexOf("http://redgifs.com") >= 0) {
-        let redID = nsfwGIFNEWImage.slice(25);
-        redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
-        https.get(redAPI, (resp) => {
-          if(resp.statusCode === 200) {
-            let data = '';
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              mp4Link = JSON.parse(data).gfyItem.mobileUrl;
-              message.channel.send(mp4Link)
-
-
-              console.log('Bot responded with: ' + nsfwGIFNEWImage);
-            });
-          }
-          else{
-            video(message);
-          }
-
-        }).on("error", (err) => {
-          console.log("Error: " + err.message);
-        });
-      }
-
-      else if (nsfwGIFNEWImage.toLowerCase().indexOf("https://www.redgifs.com") >= 0) {
-        let redID = nsfwGIFNEWImage.slice(30);
-        redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
-        https.get(redAPI, (resp) => {
-          if(resp.statusCode === 200) {
-            let data = '';
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              mp4Link = JSON.parse(data).gfyItem.mobileUrl;
-              message.channel.send(mp4Link)
-
-
-              console.log('Bot responded with: ' + nsfwGIFNEWImage);
-            });
-          }
-          else{
-            video(message);
-          }
-        }).on("error", (err) => {
-          console.log("Error: " + err.message);
-        });
-      }
-
-      else if (nsfwGIFNEWImage.toLowerCase().indexOf("http://www.redgifs.com") >= 0) {
-        let redID = nsfwGIFNEWImage.slice(29);
-        redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
-        https.get(redAPI, (resp) => {
-          if(resp.statusCode === 200) {
-            let data = '';
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              mp4Link = JSON.parse(data).gfyItem.mobileUrl;
-              message.channel.send(mp4Link)
-
-
-              console.log('Bot responded with: ' + nsfwGIFNEWImage);
-            });
-          }
-          else{
-            video(message);
-          }
-        }).on("error", (err) => {
-          console.log("Error: " + err.message);
-        });
-      }
-
-      else if (nsfwGIFNEWImage.toLowerCase().indexOf("https://gfycat.com") >= 0) {
-        let gfyID = nsfwGIFNEWImage.slice(19);
-        gfyAPI = `https://api.redgifs.com/v1/gfycats/${gfyID}`;
-        https.get(gfyAPI, (resp) => {
-          if(resp.statusCode === 200) {
-            let data = '';
-            resp.on('data', (chunk) => {
-              data += chunk;
-            });
-            resp.on('end', () => {
-              mp4Link = JSON.parse(data).gfyItem.mobileUrl;
-              message.channel.send(mp4Link)
-
-
-              console.log('Bot responded with: ' + nsfwGIFNEWImage);
-            });
-          }
-          else{
-            video(message);
-          }
-
-        }).on("error", (err) => {
-          console.log("Error: " + err.message);
-        });
-      }
-
-      else {
-        console.log(nsfwGIFNEWImage + ' rerun');
-        video(message);
-    }
+  response = fetch(sauce).then((res) => {
+    status = res.status;
+    return res.json()
   }).catch(console.error);
+
+  let nsfwGIFNEWImage = response[0].data.children[0].data.url;
+  console.log(nsfwGIFNEWImage);
+  if (nsfwGIFNEWImage.toLowerCase().indexOf("https://redgifs.com") >= 0) {
+    let redID = nsfwGIFNEWImage.slice(26);
+    redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
+    https.get(redAPI, (resp) => {
+      if(resp.statusCode === 200) {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        resp.on('end', () => {
+          mp4Link = JSON.parse(data).gfyItem.mobileUrl;
+          message.channel.send(mp4Link)
+
+
+          console.log('Bot responded with: ' + nsfwGIFNEWImage);
+        });
+      }
+      else{
+        video(message);
+      }
+
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  else if (nsfwGIFNEWImage.toLowerCase().indexOf("http://redgifs.com") >= 0) {
+    let redID = nsfwGIFNEWImage.slice(25);
+    redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
+    https.get(redAPI, (resp) => {
+      if(resp.statusCode === 200) {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        resp.on('end', () => {
+          mp4Link = JSON.parse(data).gfyItem.mobileUrl;
+          message.channel.send(mp4Link)
+
+
+          console.log('Bot responded with: ' + nsfwGIFNEWImage);
+        });
+      }
+      else{
+        video(message);
+      }
+
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  else if (nsfwGIFNEWImage.toLowerCase().indexOf("https://www.redgifs.com") >= 0) {
+    let redID = nsfwGIFNEWImage.slice(30);
+    redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
+    https.get(redAPI, (resp) => {
+      if(resp.statusCode === 200) {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        resp.on('end', () => {
+          mp4Link = JSON.parse(data).gfyItem.mobileUrl;
+          message.channel.send(mp4Link)
+
+
+          console.log('Bot responded with: ' + nsfwGIFNEWImage);
+        });
+      }
+      else{
+        video(message);
+      }
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  else if (nsfwGIFNEWImage.toLowerCase().indexOf("http://www.redgifs.com") >= 0) {
+    let redID = nsfwGIFNEWImage.slice(29);
+    redAPI = `https://api.redgifs.com/v1/gfycats/${redID}`;
+    https.get(redAPI, (resp) => {
+      if(resp.statusCode === 200) {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        resp.on('end', () => {
+          mp4Link = JSON.parse(data).gfyItem.mobileUrl;
+          message.channel.send(mp4Link)
+
+
+          console.log('Bot responded with: ' + nsfwGIFNEWImage);
+        });
+      }
+      else{
+        video(message);
+      }
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  else if (nsfwGIFNEWImage.toLowerCase().indexOf("https://gfycat.com") >= 0) {
+    let gfyID = nsfwGIFNEWImage.slice(19);
+    gfyAPI = `https://api.redgifs.com/v1/gfycats/${gfyID}`;
+    https.get(gfyAPI, (resp) => {
+      if(resp.statusCode === 200) {
+        let data = '';
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+        resp.on('end', () => {
+          mp4Link = JSON.parse(data).gfyItem.mobileUrl;
+          message.channel.send(mp4Link)
+
+
+          console.log('Bot responded with: ' + nsfwGIFNEWImage);
+        });
+      }
+      else{
+        video(message);
+      }
+
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
+  }
+
+  else {
+    console.log(nsfwGIFNEWImage + ' rerun');
+    video(message);
+}
 }

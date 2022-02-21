@@ -17,26 +17,36 @@ module.exports = {
   async execute(message, args) {
 
     let searchID = args.join(" ");
-    let responseEmbed = new MessageEmbed()
-      .setTitle("The song is loading....")
-      .setDescription("This may take a while. Please be patient.")
-      .setColor("#CC38B");
+    let bvid = searchID.slice(31, 43);
+    response = await fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then((res) => {
+      status = res.status;
+      return res.json()
+    });
+    if (response.code != 0) {
+      let responseEmbed = new MessageEmbed()
+        .setTitle("Search not found")
+        .setDescription(`The search term ${searchID} did not come back with results`)
+        .setColor("#DC143C");
 
-    responseMsg = await message.channel.send(responseEmbed);
-    if (fs.existsSync(`./bilibili/bilitemp.flv`)) {
-      fs.unlinkSync(`./bilibili/bilitemp.flv`);
+      let responseMsg = await message.channel.send(responseEmbed);
+
+      return;
     }
-    if (fs.existsSync(`./bilibili/bilitemp.ogg`)) {
-      fs.unlinkSync(`./bilibili/bilitemp.ogg`);
+    else {
+      let responseEmbed = new MessageEmbed()
+        .setTitle("The song is loading....")
+        .setDescription("This may take a while. Please be patient.")
+        .setColor("#CC38B");
+      responseMsg = await message.channel.send(responseEmbed);
+      song = {
+        title: response.data.title,
+        url: searchID,
+        duration: response.data.duration
+      };
     }
     console.log("1");
     console.log("2");
-    song = {
-      title: `Playing from BiliBili`,
-      url: searchID,
-      duration: 420
-    };
-    await pythonDL(searchID);
+    await pythonDL(searchID, bvid);
     console.log(`3, ${song.url}`);
     await conversion();
     responseMsg.delete().catch(console.error);
@@ -82,14 +92,17 @@ module.exports = {
         error: error
       })).catch(console.error);
     }
+    if (fs.existsSync(`./bilibili/${bvid}.flv`)) {
+      fs.unlinkSync(`./bilibili/${bvid}.flv`);
+    }
   }
 };
 
-function pythonDL(searchID) {
+function pythonDL(searchID, bvid) {
   return new Promise((resolve, reject) => {
     let options = {
       scriptPath: './commands',
-      args: ['--format=flv360', '-O', 'bilitemp', '-o', './bilibili', '--no-caption', `${searchID}`]
+      args: ['--format=flv360', '-O', `${bvid}`, '-o', './bilibili', '--no-caption', `${searchID}`]
     };
     console.log(options.args);
 
@@ -102,9 +115,9 @@ function pythonDL(searchID) {
   });
 };
 
-function conversion() {
+function conversion(bvid) {
   return new Promise((resolve, reject) => {
-      ffmpeg(`./bilibili/bilitemp.flv`)
+      ffmpeg(`./bilibili/${bvid}.flv`)
         .format('ogg')
         .audioCodec('libopus')
         .audioQuality(0)
@@ -114,6 +127,6 @@ function conversion() {
           console.log('converted');
           resolve();
         })
-        .save(`./bilibili/bilitemp.ogg`);
+        .save(`./bilibili/${bvid}.ogg`);
   });
 };

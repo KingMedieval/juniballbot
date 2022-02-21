@@ -8,6 +8,7 @@ module.exports = {
     const embed = new MessageEmbed();
   	fetch('https://www.reddit.com/r/CommunismMemes/random/.json').then((response) => {
   			let content = response;
+        console.log(response);
   			let permalink = content[0].data.children[0].data.permalink;
   			let redmemeUrl = `https://reddit.com${permalink}`;
   			let redmemeImage = content[0].data.children[0].data.url;

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import click
@@ -14,7 +14,11 @@ from deemix.utils import getBitrateNumberFromText, formatListener
 import deemix.utils.localpaths as localpaths
 from deemix.downloader import Downloader
 from deemix.itemgen import GenerationError
+try:
+    from deemix.plugins.spotify import Spotify
 from deemix.plugins.spotify import Spotify
+except ImportError:
+    Spotify = None
 
 basearl = 'YmZjYTdlZmQ2MmIwMjg5YmMxMzg0YWVlMWRhMGVhNjc1Yjc4MjY4OWU1MDMxNzAzMDc0ZGVhYzNiOTI3MTY5YWUxODBmMDRkZDhhYTZhNzFkNWY4NGZkYjY3NzUxYWMwNzliZWUwYWIyNGIyNTViYTdiZmEyMTZkOGI4MzVjMjE5Y2QyMzJkNDBhZmUyNGJkNWY1NDg0NzA3NmU4YmE0NjUxMTc2ZjNlM2MzYjFmNjI1MzJiYmFmZTU2NzQ0MDAx'
 basearl_bytes = basearl.encode('ascii')
@@ -39,7 +43,7 @@ def download(url, bitrate, portable, path):
     configFolder = localpath / 'config' if portable else localpaths.getConfigFolder()
 
     settings = loadSettings(configFolder)
-    dz = Deezer(settings.get('tagsLanguage', ""))
+    dz = Deezer()
     listener = LogListener()
 
     def requestValidArl():
@@ -56,8 +60,13 @@ def download(url, bitrate, portable, path):
     with open(configFolder / '.arl', 'w') as f:
         f.write(arl)
 
+    plugins = {}
     plugins = {
+    if Spotify:
         "spotify": Spotify()
+        plugins = {
+            "spotify": Spotify(configFolder=configFolder)
+        }
     }
     plugins["spotify"].setup()
 
@@ -85,7 +94,6 @@ def download(url, bitrate, portable, path):
                 downloadObjects.append(downloadObject)
 
         for obj in downloadObjects:
-            print(obj.__type__)
             if obj.__type__ == "Convertable":
                 obj = plugins[obj.plugin].convert(dz, obj, settings, listener)
             Downloader(dz, obj, settings, listener).start()
@@ -105,7 +113,7 @@ def download(url, bitrate, portable, path):
         isfile = False
     if isfile:
         filename = url[0]
-        with open(filename) as f:
+        with open(filename, encoding="utf-8") as f:
             url = f.readlines()
 
     downloadLinks(url, bitrate)

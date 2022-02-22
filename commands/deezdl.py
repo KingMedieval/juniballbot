@@ -60,14 +60,11 @@ def download(url, bitrate, portable, path):
         f.write(arl)
 
     plugins = {}
-    plugins = {
     if Spotify:
-        "spotify": Spotify()
         plugins = {
             "spotify": Spotify(configFolder=configFolder)
         }
-    }
-    plugins["spotify"].setup()
+        plugins["spotify"].setup()
 
     def downloadLinks(url, bitrate=320):
         if not bitrate: bitrate = settings.get("maxBitrate", TrackFormats.MP3_128)

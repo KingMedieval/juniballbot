@@ -40,13 +40,13 @@ module.exports = {
       responseMsg = await message.channel.send(responseEmbed);
       song = {
         title: response.data.title,
-        url: searchID,
+        url: `https://www.bilibili.com/video/${bvid}`,
         duration: response.data.duration
       };
     }
     console.log("1");
     console.log("2");
-    await pythonDL(searchID, bvid);
+    await pythonDL(song.url, bvid);
     console.log(`3, ${song.url}`);
     await conversion(bvid);
     responseMsg.delete().catch(console.error);

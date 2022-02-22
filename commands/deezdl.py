@@ -16,7 +16,6 @@ from deemix.downloader import Downloader
 from deemix.itemgen import GenerationError
 try:
     from deemix.plugins.spotify import Spotify
-from deemix.plugins.spotify import Spotify
 except ImportError:
     Spotify = None
 

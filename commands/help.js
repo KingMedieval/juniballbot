@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+   const { MessageEmbed } = require("discord.js");
 const { LOCALE } = require("../util/botUtil");
 const i18n = require("i18n");
 

@@ -10,6 +10,7 @@ i18n.setLocale(LOCALE);
 
 module.exports = {
   name: "msearch",
+  aliases; ["ms"],
   description: "deezer search cause deezer sucks",
   async execute(message, args) {
     if (!args.length)
